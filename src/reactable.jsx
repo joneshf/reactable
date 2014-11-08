@@ -247,8 +247,7 @@
                     typeof(this.props.data) === 'undefined' &&
                     stringable(this.props.children)
                 ) {
-                    if (isReactComponent(this.props.children)) { console.log('child is component'); }
-                    data = this.props.children.toString();
+                    data = typeof this.props.children === 'string' ? this.props.children : JSON.stringify(this.props.children);
                 }
 
                 if (this.props.children instanceof Unsafe) {
