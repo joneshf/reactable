@@ -118,7 +118,7 @@
     }
 
     function stringable(thing) {
-        return typeof thing !== 'undefined' && typeof thing.toString === 'function';
+        return thing != null && typeof thing.toString === 'function';
     }
 
     // this is a bit hacky - it'd be nice if React exposed an API for this
