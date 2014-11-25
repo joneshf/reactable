@@ -118,12 +118,12 @@
     }
 
     function stringable(thing) {
-        return typeof(thing) !== 'undefined' && typeof(thing.toString === 'function');
+        return typeof thing !== 'undefined' && typeof thing.toString === 'function';
     }
 
     // this is a bit hacky - it'd be nice if React exposed an API for this
     function isReactComponent(thing) {
-        return typeof(thing) === 'object' && typeof(thing.props) !== 'undefined';
+        return typeof thing === 'object' && typeof thing.props !== 'undefined';
     }
 
     React.Children.children = function(children) {
@@ -240,11 +240,11 @@
             }
 
             var data = this.props.data;
-            if (typeof(this.props.children) !== 'undefined') {
+            if (typeof this.props.children !== 'undefined') {
                 if (isReactComponent(this.props.children)) {
                     data = this.props.children;
                 } else if (
-                    typeof(this.props.data) === 'undefined' &&
+                    typeof this.props.data === 'undefined' &&
                     stringable(this.props.children)
                 ) {
                     data = typeof this.props.children === 'string' ? this.props.children : JSON.stringify(this.props.children);
@@ -427,13 +427,13 @@
         // (e.g. ['column1'] => [{key: 'column1', label: 'column1'}])
         translateColumnsArray: function(columns) {
             return columns.map(function(column, i) {
-                if (typeof(column) === 'string') {
+                if (typeof column === 'string') {
                     return {
                         key:   column,
                         label: column
                     };
                 } else {
-                    if (typeof(column.sortable) !== 'undefined') {
+                    if (typeof column.sortable !== 'undefined') {
                         var sortFunction = column.sortable === true ? 'default' : column.sortable;
                         this._sortable[column.key] = sortFunction;
                     }
@@ -446,7 +446,7 @@
             var data = [];
 
             // Transform any children back to a data array
-            if (typeof(props.children) !== 'undefined') {
+            if (typeof props.children !== 'undefined') {
                 React.Children.forEach(props.children, function(child) {
                     // TODO: figure out a new way to determine the type of a component
                     /*
@@ -461,13 +461,13 @@
                         // TODO
                         /* if (descendant.type.ConvenienceConstructor === Td) { */
                         if (true) {
-                            if (typeof(descendant.props.column) !== 'undefined') {
-                                if (typeof(descendant.props.data) !== 'undefined') {
+                            if (typeof descendant.props.column !== 'undefined') {
+                                if (typeof descendant.props.data !== 'undefined') {
 
                                     childData[descendant.props.column] =
                                         descendant.props.data;
                                 } else if (
-                                    typeof(descendant.props.children) !== 'undefined'
+                                    typeof descendant.props.children !== 'undefined'
                                 ) {
                                     childData[descendant.props.column] =
                                         descendant.props.children;
@@ -502,14 +502,14 @@
                 var columnName, sortFunction;
 
                 if (column instanceof Object) {
-                    if (typeof(column.column) !== 'undefined') {
+                    if (typeof column.column !== 'undefined') {
                         columnName = column.column;
                     } else {
                         console.warn('Sortable column specified without column name');
                         return;
                     }
 
-                    if (typeof(column.sortFunction) === 'function') {
+                    if (typeof column.sortFunction === 'function') {
                         sortFunction = column.sortFunction;
                     } else {
                         sortFunction = 'default';
@@ -551,14 +551,14 @@
             if (column instanceof Object) {
                 var columnName, sortDirection;
 
-                if (typeof(column.column) !== 'undefined') {
+                if (typeof column.column !== 'undefined') {
                     columnName = column.column;
                 } else {
                     console.warn('Default column specified without column name');
                     return;
                 }
 
-                if (typeof(column.direction) !== 'undefined') {
+                if (typeof column.direction !== 'undefined') {
                     if (column.direction === 1 || column.direction === 'asc') {
                         sortDirection = 1;
                     } else if (column.direction === -1 || column.direction === 'desc') {
@@ -615,7 +615,7 @@
                     var filterColumn = this.props.filterable[j];
 
                     if (
-                        typeof(data[filterColumn]) !== 'undefined' &&
+                        typeof data[filterColumn] !== 'undefined' &&
                         data[filterColumn].toString().toLowerCase().indexOf(filter) > -1
                     ) {
                         matchedChildren.push(children[i]);
@@ -666,7 +666,7 @@
         },
         onSort: function(column) {
             // Don't perform sort on unsortable columns
-            if (typeof(this._sortable[column]) === 'undefined') {
+            if (typeof this._sortable[column] === 'undefined') {
                 return;
             }
 
