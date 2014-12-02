@@ -123,7 +123,7 @@
 
     // this is a bit hacky - it'd be nice if React exposed an API for this
     function isReactComponent(thing) {
-        return typeof thing === 'object' && typeof thing.props !== 'undefined';
+        return thing != null && typeof thing.props !== 'undefined';
     }
 
     React.Children.children = function(children) {
